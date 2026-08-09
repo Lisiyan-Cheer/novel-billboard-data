@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>都市脑洞全榜单汇总 · 2026-08-06</title>
+<style>
+:root {
+  --bg: #FAFAF7; --surface: #FFFFFF; --surface-2: #F4F4EF;
+  --ink: #1F1F1F; --ink-soft: #4B5563; --ink-mute: #9CA3AF;
+  --line: #E5E7EB; --line-soft: #F0F0EB;
+  --brand: #0F766E; --brand-deep: #115E59; --brand-soft: #CCFBF1;
+  --c-green: #059669; --c-green-bg: #ECFDF5;
+  --c-amber: #D97706; --c-amber-bg: #FFFBEB;
+  --c-purple: #7C3AED; --c-purple-bg: #F5F3FF;
+  --c-red: #DC2626; --c-red-bg: #FEF2F2;
+  --radius: 10px; --radius-sm: 6px;
+  --shadow: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.06);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  background: var(--bg); color: var(--ink); line-height: 1.8; font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 48px 32px 96px; }
+
+/* 页头 */
+.masthead { margin-bottom: 48px; }
+.kicker {
+  color: var(--brand); font-size: 13px; font-weight: 600;
+  letter-spacing: .15em; text-transform: uppercase; margin-bottom: 12px;
+}
+.masthead h1 {
+  font-size: 34px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; margin-bottom: 12px;
+}
+.lede {
+  font-size: 17px; color: var(--ink-soft); max-width: 760px;
+  border-left: 3px solid var(--brand); padding-left: 16px;
+}
+.meta-row { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; font-size: 13px; color: var(--ink-mute); }
+.meta-row b { color: var(--ink-soft); font-weight: 600; }
+
+/* 章节 */
+section.chapter { margin: 64px 0; scroll-margin-top: 24px; }
+.chapter-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
+.chapter-num { font-size: 22px; font-weight: 700; color: var(--brand); font-family: Georgia, serif; line-height: 1; }
+.chapter-head h2 { font-size: 22px; font-weight: 700; color: var(--ink); padding-left: 14px; border-left: 3px solid var(--brand); }
+.chapter-note { color: var(--ink-mute); font-size: 13px; margin-left: auto; }
+p { margin: 10px 0; color: var(--ink); }
+.lead-p { color: var(--ink-soft); }
+
+/* 概览统计卡 */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 8px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--brand); border-radius: var(--radius-sm); padding: 18px; box-shadow: var(--shadow); }
+.stat .num { font-size: 26px; font-weight: 700; color: var(--brand); font-family: Georgia, serif; line-height: 1; }
+.stat .lbl { color: var(--ink-mute); font-size: 12px; margin-top: 8px; }
+
+/* panel */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+.panel + .panel { margin-top: 16px; }
+.panel p { margin: 6px 0; }
+.label { display: inline-block; color: var(--brand); font-weight: 600; font-size: 13px; margin-right: 6px; }
+
+/* badges */
+.arc-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.arc-badge { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 13px; color: var(--ink-soft); }
+.arc-badge b { color: var(--brand); font-weight: 700; margin-right: 6px; }
+
+/* 通用表格 */
+table.tbl { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-top: 8px; }
+table.tbl th { background: var(--surface-2); color: var(--brand-deep); font-weight: 700; text-align: left; padding: 12px 12px; border-bottom: 2px solid var(--line); font-size: 13px; white-space: nowrap; }
+table.tbl td { padding: 12px; border-bottom: 1px solid var(--line-soft); vertical-align: top; font-size: 13px; color: var(--ink-soft); }
+table.tbl tr:last-child td { border-bottom: none; }
+table.tbl tr:hover td { background: #FCFCF9; }
+table.tbl td.num { color: var(--brand); font-weight: 700; text-align: center; width: 42px; }
+table.tbl td.bk { color: var(--ink); font-weight: 600; }
+table.tbl td.uv { font-weight: 700; color: var(--brand-deep); white-space: nowrap; text-align: right; }
+table.tbl td.rk { text-align: center; font-weight: 700; white-space: nowrap; }
+
+/* 榜单标题 */
+.board-title { background: var(--surface-2); border-left: 4px solid var(--brand); padding: 10px 16px; font-weight: 700; color: var(--ink); margin: 28px 0 8px; border-radius: 0 6px 6px 0; font-size: 16px; }
+.board-title .cnt { color: var(--ink-mute); font-size: 13px; font-weight: 400; margin-left: 8px; }
+
+/* 标签条 */
+.tagbar { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 13px; color: var(--ink-soft); }
+.tag-pill .freq { background: var(--brand-soft); color: var(--brand-deep); font-weight: 700; font-size: 12px; padding: 1px 8px; border-radius: 999px; }
+.tag-pill.top { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-deep); font-weight: 600; }
+.tag-pill.top .freq { background: var(--brand); color: #fff; }
+
+/* 要点 */
+.points { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 28px; box-shadow: var(--shadow); }
+.point { padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
+.point:last-child { border-bottom: none; }
+.point h4 { color: var(--brand); font-size: 15px; margin-bottom: 4px; }
+.point h4 .n { font-family: Georgia, serif; margin-right: 6px; }
+.point p { color: var(--ink-soft); font-size: 14px; margin: 0; }
+
+/* footer */
+.foot { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--ink-mute); font-size: 12px; text-align: center; }
+
+@media (max-width: 720px) {
+  .wrap { padding: 28px 16px 64px; }
+  .masthead h1 { font-size: 24px; }
+  .lede { font-size: 15px; }
+  table.tbl { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+  table.tbl th, table.tbl td { font-size: 12px; padding: 10px 8px; }
+  .chapter-note { margin-left: 0; width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 页头 -->
+<header class="masthead">
+  <div class="kicker">番茄小说榜单 · 都市脑洞 · 数据汇总</div>
+  <h1>都市脑洞全榜单汇总</h1>
+  <p class="lede">覆盖番茄小说 B端 2 个榜单 + C端 7 个榜单，去重前 120 条，去重后 90 本唯一作品；按在榜榜位数 × 日UV 综合排序。</p>
+  <div class="meta-row">
+    <span><b>数据日期</b> 2026-08-06</span>
+    <span><b>来源</b> 番茄小说 B端 + C端</span>
+    <span><b>去重前</b> 120 条</span>
+    <span><b>去重后</b> 90 本</span>
+    <span><b>覆盖榜单</b> 9 个</span>
+  </div>
+</header>
+
+<!-- 概览 -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">壹</span>
+    <h2>数据概览</h2>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="num">90</div><div class="lbl">去重后唯一作品</div></div>
+    <div class="stat"><div class="num">9</div><div class="lbl">覆盖榜单数</div></div>
+    <div class="stat"><div class="num">26</div><div class="lbl">跨榜作品数</div></div>
+    <div class="stat"><div class="num">1158.1万</div><div class="lbl">最高日UV</div></div>
+    <div class="stat"><div class="num">63</div><div class="lbl">系统流（70%）</div></div>
+    <div class="stat"><div class="num">56</div><div class="lbl">标签种类</div></div>
+  </div>
+  <div class="panel" style="margin-top:16px;">
+    <p><span class="label">榜单构成</span>B端男频阅读榜 Top30、B端男频新书榜 Top30、C端阅读榜 Top30、C端新书榜 Top30；C端口碑榜/完本榜/推荐榜/热播榜/高分榜 本期 Top0。</p>
+    <p><span class="label">跨榜作品</span>90 本中 26 本同时出现在多个榜单，其中 4 本同时上榜 3 个榜单，是本期头部作品。</p>
+  </div>
+</section>
+
+<!-- 跨榜 TOP -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">貳</span>
+    <h2>跨榜单 TOP 作品</h2>
+    <span class="chapter-note">同时上 3 个榜单的 4 本头部</span>
+  </div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>上榜榜单</th><th>日UV</th><th>14天加架</th><th>评分</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">归国留洋水货？叫我芯片之父！</td><td>这肉有毒</td><td>B端阅读#1 · C端阅读#1 · C端新书#12</td><td class="uv">333.7万</td><td>15.3万</td><td>8.3</td></tr>
+      <tr><td class="num">2</td><td class="bk">顶级妇医：开局查出名媛怀外教种</td><td>咸包谷</td><td>B端阅读#3 · C端阅读#5 · C端新书#15</td><td class="uv">295.8万</td><td>5.2万</td><td>8.5</td></tr>
+      <tr><td class="num">3</td><td class="bk">开局上岸，从外卖员成秘密特勤</td><td>骑着青牛漫步</td><td>B端阅读#16 · C端阅读#9 · C端新书#5</td><td class="uv">197.5万</td><td>6.5万</td><td>8.6</td></tr>
+      <tr><td class="num">4</td><td class="bk">人在五哈：全网催我和前任复合！</td><td>白色焰火FFF</td><td>B端阅读#14 · C端阅读#11 · C端新书#13</td><td class="uv">181.9万</td><td>4.9万</td><td>7.5</td></tr>
+    </tbody>
+  </table>
+
+  <div class="board-title">同时上 2 个榜单的 22 本（节选高 UV）</div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>上榜榜单</th><th>日UV</th><th>14天加架</th><th>评分</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">我，圈钱主播！但大哥是真刷啊！</td><td>蓝色粉笔</td><td>B端阅读#24 · C端阅读#18</td><td class="uv">1158.1万</td><td>3.3万</td><td>9.4</td><td>完结</td></tr>
+      <tr><td class="num">2</td><td class="bk">刀哥爆红娱乐圈，粉丝求我别杀了</td><td>孤风一醉</td><td>B端阅读#26 · C端阅读#22</td><td class="uv">609.3万</td><td>4.0万</td><td>9.2</td><td>连载</td></tr>
+      <tr><td class="num">3</td><td class="bk">每天六千万，只能在县城花？</td><td>凤失凰</td><td>B端阅读#4 · C端阅读#3</td><td class="uv">581.7万</td><td>6.4万</td><td>8.0</td><td>连载</td></tr>
+      <tr><td class="num">4</td><td class="bk">继承荒山：直接改造10A级景区</td><td>小猪旺财</td><td>B端阅读#19 · C端阅读#17</td><td class="uv">499.1万</td><td>7.7万</td><td>9.4</td><td>完结</td></tr>
+      <tr><td class="num">5</td><td class="bk">改运奇书</td><td>写小说的斯巴达</td><td>B端阅读#13 · C端阅读#10</td><td class="uv">472.1万</td><td>8.6万</td><td>9.3</td><td>完结</td></tr>
+      <tr><td class="num">6</td><td class="bk">入伍四次！我被原部队拉进黑名单</td><td>朝朝和</td><td>B端阅读#17 · C端阅读#12</td><td class="uv">311.9万</td><td>5.2万</td><td>8.5</td><td>连载</td></tr>
+      <tr><td class="num">7</td><td class="bk">死亡回档，48小时拯救世界</td><td>稻香锅巴</td><td>B端阅读#28 · C端阅读#23</td><td class="uv">276.0万</td><td>3.5万</td><td>8.6</td><td>连载</td></tr>
+      <tr><td class="num">8</td><td class="bk">救命！我这是农场，不是动物园！</td><td>白日阳光</td><td>B端阅读#20 · C端阅读#20</td><td class="uv">258.9万</td><td>3.8万</td><td>8.3</td><td>连载</td></tr>
+      <tr><td class="num">9</td><td class="bk">让你去潜伏，你把老米搬空了？</td><td>梦回八荒</td><td>C端阅读#29 · C端新书#9</td><td class="uv">210.5万</td><td>2.8万</td><td>8.0</td><td>连载</td></tr>
+      <tr><td class="num">10</td><td class="bk">上恋综后，和清冷设计师爆火全网</td><td>在下张滚滚</td><td>B端阅读#2 · C端阅读#2</td><td class="uv">188.9万</td><td>12.2万</td><td>8.9</td><td>连载</td></tr>
+      <tr><td class="num">11</td><td class="bk">每天一个亿，开局和校花签订契约</td><td>滴滴滴哒三号</td><td>B端阅读#5 · C端阅读#8</td><td class="uv">180.4万</td><td>7.0万</td><td>7.0</td><td>连载</td></tr>
+      <tr><td class="num">12</td><td class="bk">华娱：从绑定天仙开始全能</td><td>青葱咸鱼</td><td>B端阅读#10 · C端阅读#7</td><td class="uv">176.8万</td><td>7.1万</td><td>8.8</td><td>连载</td></tr>
+      <tr><td class="num">13</td><td class="bk">自律就变帅！高冷校花绷不住了！</td><td>单身狗协会副会长</td><td>B端阅读#7 · C端阅读#4</td><td class="uv">159.9万</td><td>7.3万</td><td>7.6</td><td>连载</td></tr>
+      <tr><td class="num">14</td><td class="bk">卖个早点，怎么上班族全迟到了</td><td>练腿摸鱼仔</td><td>B端阅读#23 · C端阅读#24</td><td class="uv">152.3万</td><td>4.3万</td><td>8.5</td><td>连载</td></tr>
+      <tr><td class="num">15</td><td class="bk">让你拍反腐片，你拍人民的名义！</td><td>火狐火狐</td><td>C端阅读#30 · C端新书#3</td><td class="uv">147.7万</td><td>2.9万</td><td>7.2</td><td>连载</td></tr>
+      <tr><td class="num">16</td><td class="bk">下载APP，才发现青梅好感爆了</td><td>八音</td><td>B端阅读#9 · C端阅读#14</td><td class="uv">135.4万</td><td>7.6万</td><td>9.2</td><td>连载</td></tr>
+      <tr><td class="num">17</td><td class="bk">分手后，被一群精神小妹收留了</td><td>闭门斋</td><td>B端阅读#21 · C端阅读#21</td><td class="uv">129.8万</td><td>10.8万</td><td>7.3</td><td>连载</td></tr>
+      <tr><td class="num">18</td><td class="bk">看见情绪颜色后，她们都变粉色了</td><td>M0724</td><td>B端阅读#6 · C端阅读#6</td><td class="uv">124.2万</td><td>9.8万</td><td>9.2</td><td>连载</td></tr>
+      <tr><td class="num">19</td><td class="bk">好感度系统：女神想要的，我全有</td><td>欧氪</td><td>B端阅读#11 · C端阅读#16</td><td class="uv">115.0万</td><td>4.1万</td><td>8.2</td><td>连载</td></tr>
+      <tr><td class="num">20</td><td class="bk">让你写爽文，你写活着？</td><td>风的传说</td><td>B端阅读#30 · C端阅读#27</td><td class="uv">49.1万</td><td>4.4万</td><td>8.2</td><td>连载</td></tr>
+      <tr><td class="num">21</td><td class="bk">刚满五岁半，老登逆袭系统来了</td><td>小生有点帅</td><td>B端阅读#22 · C端阅读#13</td><td class="uv">48.9万</td><td>7.5万</td><td>7.6</td><td>连载</td></tr>
+      <tr><td class="num">22</td><td class="bk">我一个校长，听学生建议怎么了？</td><td>东北女主</td><td>B端阅读#27 · C端阅读#25</td><td class="uv">48.6万</td><td>5.9万</td><td>7.9</td><td>连载</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 日UV TOP10 -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">叁</span>
+    <h2>日UV TOP 10</h2>
+    <span class="chapter-note">跨所有榜单</span>
+  </div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>日UV</th><th>状态</th><th>所在榜单</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">我，圈钱主播！但大哥是真刷啊！</td><td>蓝色粉笔</td><td class="uv">1158.1万</td><td>完结</td><td>B端阅读#24 · C端阅读#18</td></tr>
+      <tr><td class="num">2</td><td class="bk">刀哥爆红娱乐圈，粉丝求我别杀了</td><td>孤风一醉</td><td class="uv">609.3万</td><td>连载</td><td>B端阅读#26 · C端阅读#22</td></tr>
+      <tr><td class="num">3</td><td class="bk">每天六千万，只能在县城花？</td><td>凤失凰</td><td class="uv">581.7万</td><td>连载</td><td>B端阅读#4 · C端阅读#3</td></tr>
+      <tr><td class="num">4</td><td class="bk">继承荒山：直接改造10A级景区</td><td>小猪旺财</td><td class="uv">499.1万</td><td>完结</td><td>B端阅读#19 · C端阅读#17</td></tr>
+      <tr><td class="num">5</td><td class="bk">改运奇书</td><td>写小说的斯巴达</td><td class="uv">472.1万</td><td>完结</td><td>B端阅读#13 · C端阅读#10</td></tr>
+      <tr><td class="num">6</td><td class="bk">高武：背景无敌的我，居然是反派</td><td>吃饭饭</td><td class="uv">337.0万</td><td>连载</td><td>C端新书#28</td></tr>
+      <tr><td class="num">7</td><td class="bk">归国留洋水货？叫我芯片之父！</td><td>这肉有毒</td><td class="uv">333.7万</td><td>连载</td><td>B端阅读#1 · C端阅读#1 · C端新书#12</td></tr>
+      <tr><td class="num">8</td><td class="bk">入伍四次！我被原部队拉进黑名单</td><td>朝朝和</td><td class="uv">311.9万</td><td>连载</td><td>B端阅读#17 · C端阅读#12</td></tr>
+      <tr><td class="num">9</td><td class="bk">顶级妇医：开局查出名媛怀外教种</td><td>咸包谷</td><td class="uv">295.8万</td><td>连载</td><td>B端阅读#3 · C端阅读#5 · C端新书#15</td></tr>
+      <tr><td class="num">10</td><td class="bk">死亡回档，48小时拯救世界</td><td>稻香锅巴</td><td class="uv">276.0万</td><td>连载</td><td>B端阅读#28 · C端阅读#23</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 评分 TOP10 -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">肆</span>
+    <h2>评分 TOP 10</h2>
+  </div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>评分</th><th>状态</th><th>所在榜单</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">继承荒山：直接改造10A级景区</td><td>小猪旺财</td><td class="rk">9.4</td><td>完结</td><td>B端阅读#19 · C端阅读#17</td></tr>
+      <tr><td class="num">2</td><td class="bk">我，圈钱主播！但大哥是真刷啊！</td><td>蓝色粉笔</td><td class="rk">9.4</td><td>完结</td><td>B端阅读#24 · C端阅读#18</td></tr>
+      <tr><td class="num">3</td><td class="bk">改运奇书</td><td>写小说的斯巴达</td><td class="rk">9.3</td><td>完结</td><td>B端阅读#13 · C端阅读#10</td></tr>
+      <tr><td class="num">4</td><td class="bk">看见情绪颜色后，她们都变粉色了</td><td>M0724</td><td class="rk">9.2</td><td>连载</td><td>B端阅读#6 · C端阅读#6</td></tr>
+      <tr><td class="num">5</td><td class="bk">下载APP，才发现青梅好感爆了</td><td>八音</td><td class="rk">9.2</td><td>连载</td><td>B端阅读#9 · C端阅读#14</td></tr>
+      <tr><td class="num">6</td><td class="bk">刀哥爆红娱乐圈，粉丝求我别杀了</td><td>孤风一醉</td><td class="rk">9.2</td><td>连载</td><td>B端阅读#26 · C端阅读#22</td></tr>
+      <tr><td class="num">7</td><td class="bk">上恋综后，和清冷设计师爆火全网</td><td>在下张滚滚</td><td class="rk">8.9</td><td>连载</td><td>B端阅读#2 · C端阅读#2</td></tr>
+      <tr><td class="num">8</td><td class="bk">华娱：从绑定天仙开始全能</td><td>青葱咸鱼</td><td class="rk">8.8</td><td>连载</td><td>B端阅读#10 · C端阅读#7</td></tr>
+      <tr><td class="num">9</td><td class="bk">实习教出金牌班，家长要换班主任</td><td>碧水红潮</td><td class="rk">8.8</td><td>连载</td><td>B端新书#2</td></tr>
+      <tr><td class="num">10</td><td class="bk">开局上岸，从外卖员成秘密特勤</td><td>骑着青牛漫步</td><td class="rk">8.6</td><td>连载</td><td>B端阅读#16 · C端阅读#9 · C端新书#5</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 14天加架 TOP10 -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">伍</span>
+    <h2>14天加架 TOP 10</h2>
+    <span class="chapter-note">新近人气指标</span>
+  </div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>14天加架</th><th>日UV</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">归国留洋水货？叫我芯片之父！</td><td>这肉有毒</td><td class="rk">15.3万</td><td class="uv">333.7万</td><td>连载</td></tr>
+      <tr><td class="num">2</td><td class="bk">实习教出金牌班，家长要换班主任</td><td>碧水红潮</td><td class="rk">12.3万</td><td class="uv">152.9万</td><td>连载</td></tr>
+      <tr><td class="num">3</td><td class="bk">上恋综后，和清冷设计师爆火全网</td><td>在下张滚滚</td><td class="rk">12.2万</td><td class="uv">188.9万</td><td>连载</td></tr>
+      <tr><td class="num">4</td><td class="bk">系统想害我，我选择上交国家</td><td>超级吹宝泡泡糖</td><td class="rk">12.1万</td><td class="uv">87.9万</td><td>连载</td></tr>
+      <tr><td class="num">5</td><td class="bk">高考出分前一晚，兑换北大录取书</td><td>西瓜要涨价</td><td class="rk">11.7万</td><td class="uv">174.8万</td><td>连载</td></tr>
+      <tr><td class="num">6</td><td class="bk">分手后，被一群精神小妹收留了</td><td>闭门斋</td><td class="rk">10.8万</td><td class="uv">129.8万</td><td>连载</td></tr>
+      <tr><td class="num">7</td><td class="bk">看见情绪颜色后，她们都变粉色了</td><td>M0724</td><td class="rk">9.8万</td><td class="uv">124.2万</td><td>连载</td></tr>
+      <tr><td class="num">8</td><td class="bk">改运奇书</td><td>写小说的斯巴达</td><td class="rk">8.6万</td><td class="uv">472.1万</td><td>完结</td></tr>
+      <tr><td class="num">9</td><td class="bk">继承荒山：直接改造10A级景区</td><td>小猪旺财</td><td class="rk">7.7万</td><td class="uv">499.1万</td><td>完结</td></tr>
+      <tr><td class="num">10</td><td class="bk">下载APP，才发现青梅好感爆了</td><td>八音</td><td class="rk">7.6万</td><td class="uv">135.4万</td><td>连载</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 字数 TOP10 -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">陆</span>
+    <h2>字数 TOP 10</h2>
+  </div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>字数</th><th>状态</th><th>所在榜单</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">刀哥爆红娱乐圈，粉丝求我别杀了</td><td>孤风一醉</td><td class="rk">222.1万</td><td>连载</td><td>B端阅读#26 · C端阅读#22</td></tr>
+      <tr><td class="num">2</td><td class="bk">继承荒山：直接改造10A级景区</td><td>小猪旺财</td><td class="rk">186.3万</td><td>完结</td><td>B端阅读#19 · C端阅读#17</td></tr>
+      <tr><td class="num">3</td><td class="bk">我，圈钱主播！但大哥是真刷啊！</td><td>蓝色粉笔</td><td class="rk">180.1万</td><td>完结</td><td>B端阅读#24 · C端阅读#18</td></tr>
+      <tr><td class="num">4</td><td class="bk">改运奇书</td><td>写小说的斯巴达</td><td class="rk">173.5万</td><td>完结</td><td>B端阅读#13 · C端阅读#10</td></tr>
+      <tr><td class="num">5</td><td class="bk">刚离婚，被白富美拉去领证</td><td>富婆收割机</td><td class="rk">137.7万</td><td>连载</td><td>C端阅读#28</td></tr>
+      <tr><td class="num">6</td><td class="bk">代驾就变强：让我叫妈妈是什么鬼</td><td>三木阿满</td><td class="rk">131.5万</td><td>连载</td><td>B端阅读#25</td></tr>
+      <tr><td class="num">7</td><td class="bk">死亡回档，48小时拯救世界</td><td>稻香锅巴</td><td class="rk">114.1万</td><td>连载</td><td>B端阅读#28 · C端阅读#23</td></tr>
+      <tr><td class="num">8</td><td class="bk">让你卧底，你把老米榨干了？</td><td>这样说会不会太伤他</td><td class="rk">111.9万</td><td>连载</td><td>C端阅读#26</td></tr>
+      <tr><td class="num">9</td><td class="bk">华娱：从绑定天仙开始全能</td><td>青葱咸鱼</td><td class="rk">107.2万</td><td>连载</td><td>B端阅读#10 · C端阅读#7</td></tr>
+      <tr><td class="num">10</td><td class="bk">每天六千万，只能在县城花？</td><td>凤失凰</td><td class="rk">105.5万</td><td>连载</td><td>B端阅读#4 · C端阅读#3</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 各榜单 -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">柒</span>
+    <h2>各榜单原始数据</h2>
+    <span class="chapter-note">B端阅读榜 · B端新书榜 · C端阅读榜 · C端新书榜</span>
+  </div>
+
+  <div class="board-title">B端 - 男频阅读榜 <span class="cnt">Top 30</span></div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>等级</th><th>评分</th><th>字数</th><th>日UV</th><th>14天加架</th><th>状态</th><th>在榜</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">归国留洋水货？叫我芯片之父！</td><td>这肉有毒</td><td>Lv.5</td><td>8.3</td><td>78.6万</td><td class="uv">333.7万</td><td>15.3万</td><td>连载</td><td>74</td></tr>
+      <tr><td class="num">2</td><td class="bk">上恋综后，和清冷设计师爆火全网</td><td>在下张滚滚</td><td>Lv.4</td><td>8.9</td><td>34.4万</td><td class="uv">188.9万</td><td>12.2万</td><td>连载</td><td>11</td></tr>
+      <tr><td class="num">3</td><td class="bk">顶级妇医：开局查出名媛怀外教种</td><td>咸包谷</td><td>Lv.5</td><td>8.5</td><td>92.9万</td><td class="uv">295.8万</td><td>5.2万</td><td>连载</td><td>87</td></tr>
+      <tr><td class="num">4</td><td class="bk">每天六千万，只能在县城花？</td><td>凤失凰</td><td>Lv.5</td><td>8.0</td><td>105.5万</td><td class="uv">581.7万</td><td>6.4万</td><td>连载</td><td>91</td></tr>
+      <tr><td class="num">5</td><td class="bk">每天一个亿，开局和校花签订契约</td><td>滴滴滴哒三号</td><td>Lv.4</td><td>7.0</td><td>92.1万</td><td class="uv">180.4万</td><td>7.0万</td><td>连载</td><td>41</td></tr>
+      <tr><td class="num">6</td><td class="bk">看见情绪颜色后，她们都变粉色了</td><td>M0724</td><td>Lv.4</td><td>9.2</td><td>50.9万</td><td class="uv">124.2万</td><td>9.8万</td><td>连载</td><td>27</td></tr>
+      <tr><td class="num">7</td><td class="bk">自律就变帅！高冷校花绷不住了！</td><td>单身狗协会副会长</td><td>Lv.4</td><td>7.6</td><td>79.7万</td><td class="uv">159.9万</td><td>7.3万</td><td>连载</td><td>34</td></tr>
+      <tr><td class="num">8</td><td class="bk">什么叫高考满分，但人失踪了？</td><td>核动力打窝仙人</td><td>Lv.5</td><td>5.9</td><td>32.5万</td><td class="uv">178.4万</td><td>3.7万</td><td>连载</td><td>7</td></tr>
+      <tr><td class="num">9</td><td class="bk">下载APP，才发现青梅好感爆了</td><td>八音</td><td>Lv.5</td><td>9.2</td><td>37.3万</td><td class="uv">135.4万</td><td>7.6万</td><td>连载</td><td>19</td></tr>
+      <tr><td class="num">10</td><td class="bk">华娱：从绑定天仙开始全能</td><td>青葱咸鱼</td><td>Lv.5</td><td>8.8</td><td>107.2万</td><td class="uv">176.8万</td><td>7.1万</td><td>连载</td><td>21</td></tr>
+      <tr><td class="num">11</td><td class="bk">好感度系统：女神想要的，我全有</td><td>欧氪</td><td>Lv.4</td><td>8.2</td><td>63.7万</td><td class="uv">115.0万</td><td>4.1万</td><td>连载</td><td>36</td></tr>
+      <tr><td class="num">12</td><td class="bk">买卖词条，打造非凡俱乐部</td><td>飞天神牛</td><td>Lv.5</td><td>6.8</td><td>32.6万</td><td class="uv">64.3万</td><td>3.9万</td><td>连载</td><td>6</td></tr>
+      <tr><td class="num">13</td><td class="bk">改运奇书</td><td>写小说的斯巴达</td><td>Lv.5</td><td>9.3</td><td>173.5万</td><td class="uv">472.1万</td><td>8.6万</td><td>完结</td><td>175</td></tr>
+      <tr><td class="num">14</td><td class="bk">人在五哈：全网催我和前任复合！</td><td>白色焰火FFF</td><td>Lv.4</td><td>7.5</td><td>59.2万</td><td class="uv">181.9万</td><td>4.9万</td><td>连载</td><td>44</td></tr>
+      <tr><td class="num">15</td><td class="bk">系统想害我，我选择上交国家</td><td>超级吹宝泡泡糖</td><td>Lv.2</td><td>8.4</td><td>31.0万</td><td class="uv">87.9万</td><td>12.1万</td><td>连载</td><td>2</td></tr>
+      <tr><td class="num">16</td><td class="bk">开局上岸，从外卖员成秘密特勤</td><td>骑着青牛漫步</td><td>Lv.5</td><td>8.6</td><td>60.1万</td><td class="uv">197.5万</td><td>6.5万</td><td>连载</td><td>47</td></tr>
+      <tr><td class="num">17</td><td class="bk">入伍四次！我被原部队拉进黑名单</td><td>朝朝和</td><td>Lv.5</td><td>8.5</td><td>70.8万</td><td class="uv">311.9万</td><td>5.2万</td><td>连载</td><td>35</td></tr>
+      <tr><td class="num">18</td><td class="bk">和天后领证后，我靠半首歌封神</td><td>爱吃鱼尾巴的猫</td><td>Lv.4</td><td>7.4</td><td>54.2万</td><td class="uv">86.3万</td><td>5.2万</td><td>连载</td><td>10</td></tr>
+      <tr><td class="num">19</td><td class="bk">继承荒山：直接改造10A级景区</td><td>小猪旺财</td><td>Lv.5</td><td>9.4</td><td>186.3万</td><td class="uv">499.1万</td><td>7.7万</td><td>完结</td><td>95</td></tr>
+      <tr><td class="num">20</td><td class="bk">救命！我这是农场，不是动物园！</td><td>白日阳光</td><td>Lv.5</td><td>8.3</td><td>74.1万</td><td class="uv">258.9万</td><td>3.8万</td><td>连载</td><td>80</td></tr>
+      <tr><td class="num">21</td><td class="bk">分手后，被一群精神小妹收留了</td><td>闭门斋</td><td>Lv.4</td><td>7.3</td><td>100.2万</td><td class="uv">129.8万</td><td>10.8万</td><td>连载</td><td>34</td></tr>
+      <tr><td class="num">22</td><td class="bk">刚满五岁半，老登逆袭系统来了</td><td>小生有点帅</td><td>Lv.4</td><td>7.6</td><td>56.6万</td><td class="uv">48.9万</td><td>7.5万</td><td>连载</td><td>5</td></tr>
+      <tr><td class="num">23</td><td class="bk">卖个早点，怎么上班族全迟到了</td><td>练腿摸鱼仔</td><td>Lv.5</td><td>8.5</td><td>94.2万</td><td class="uv">152.3万</td><td>4.3万</td><td>连载</td><td>69</td></tr>
+      <tr><td class="num">24</td><td class="bk">我，圈钱主播！但大哥是真刷啊！</td><td>蓝色粉笔</td><td>Lv.5</td><td>9.4</td><td>180.1万</td><td class="uv">1158.1万</td><td>3.3万</td><td>完结</td><td>360</td></tr>
+      <tr><td class="num">25</td><td class="bk">代驾就变强：让我叫妈妈是什么鬼</td><td>三木阿满</td><td>Lv.5</td><td>7.5</td><td>131.5万</td><td class="uv">146.7万</td><td>3.0万</td><td>连载</td><td>4</td></tr>
+      <tr><td class="num">26</td><td class="bk">刀哥爆红娱乐圈，粉丝求我别杀了</td><td>孤风一醉</td><td>Lv.5</td><td>9.2</td><td>222.1万</td><td class="uv">609.3万</td><td>4.0万</td><td>连载</td><td>383</td></tr>
+      <tr><td class="num">27</td><td class="bk">我一个校长，听学生建议怎么了？</td><td>东北女主</td><td>Lv.2</td><td>7.9</td><td>42.0万</td><td class="uv">48.6万</td><td>5.9万</td><td>连载</td><td>7</td></tr>
+      <tr><td class="num">28</td><td class="bk">死亡回档，48小时拯救世界</td><td>稻香锅巴</td><td>Lv.5</td><td>8.6</td><td>114.1万</td><td class="uv">276.0万</td><td>3.5万</td><td>连载</td><td>76</td></tr>
+      <tr><td class="num">29</td><td class="bk">荒岛求生：有了个娃后百倍提升？</td><td>风吹小草摇</td><td>Lv.4</td><td>6.4</td><td>85.7万</td><td class="uv">125.2万</td><td>2.5万</td><td>连载</td><td>45</td></tr>
+      <tr><td class="num">30</td><td class="bk">让你写爽文，你写活着？</td><td>风的传说</td><td>Lv.3</td><td>8.2</td><td>45.5万</td><td class="uv">49.1万</td><td>4.4万</td><td>连载</td><td>2</td></tr>
+    </tbody>
+  </table>
+
+  <div class="board-title">B端 - 男频新书榜 <span class="cnt">Top 30</span></div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>等级</th><th>评分</th><th>字数</th><th>日UV</th><th>14天加架</th><th>状态</th><th>在榜</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">高考出分前一晚，兑换北大录取书</td><td>西瓜要涨价</td><td>Lv.5</td><td>7.5</td><td>27.8万</td><td class="uv">174.8万</td><td>11.7万</td><td>连载</td><td>38</td></tr>
+      <tr><td class="num">2</td><td class="bk">实习教出金牌班，家长要换班主任</td><td>碧水红潮</td><td>Lv.5</td><td>8.8</td><td>27.0万</td><td class="uv">152.9万</td><td>12.3万</td><td>连载</td><td>37</td></tr>
+      <tr><td class="num">3</td><td class="bk">三棍打散兄妹情，我家兄长不当人</td><td>往事如烟</td><td>Lv.4</td><td>6.6</td><td>25.4万</td><td class="uv">70.8万</td><td>7.3万</td><td>连载</td><td>14</td></tr>
+      <tr><td class="num">4</td><td class="bk">神豪太青涩，校花闺蜜团只好倒追</td><td>来当金番了</td><td>Lv.3</td><td>6.5</td><td>28.7万</td><td class="uv">63.7万</td><td>4.5万</td><td>连载</td><td>26</td></tr>
+      <tr><td class="num">5</td><td class="bk">重生后，成了妹妹的专属爱物</td><td>清清籽衿</td><td>Lv.1</td><td>8.4</td><td>25.4万</td><td class="uv">49.3万</td><td>6.2万</td><td>连载</td><td>17</td></tr>
+      <tr><td class="num">6</td><td class="bk">让你当众写检讨，你作洛神赋？</td><td>肤白貌美没有腿</td><td>Lv.1</td><td>7.3</td><td>24.3万</td><td class="uv">57.8万</td><td>4.5万</td><td>连载</td><td>21</td></tr>
+      <tr><td class="num">7</td><td class="bk">离婚后，我成了刀枪炮！</td><td>飞翔的蜗牛1</td><td>Lv.2</td><td>6.7</td><td>13.9万</td><td class="uv">27.5万</td><td>4.3万</td><td>连载</td><td>5</td></tr>
+      <tr><td class="num">8</td><td class="bk">仙尊语音包：冤种全家误会成心声</td><td>请叫我太子殿下</td><td>Lv.5</td><td>5.2</td><td>19.8万</td><td class="uv">46.5万</td><td>2.1万</td><td>连载</td><td>22</td></tr>
+      <tr><td class="num">9</td><td class="bk">女频富二代，从好兄弟青梅开始</td><td>苍云摆渡</td><td>Lv.5</td><td>6.1</td><td>26.1万</td><td class="uv">36.5万</td><td>3.3万</td><td>连载</td><td>17</td></tr>
+      <tr><td class="num">10</td><td class="bk">同归于尽后，宿敌跟我回到现实！</td><td>赵泰大人</td><td>Lv.2</td><td>7.4</td><td>15.8万</td><td class="uv">25.0万</td><td>4.9万</td><td>连载</td><td>7</td></tr>
+      <tr><td class="num">11</td><td class="bk">高考迟到被抓，问我腾龙好用吗</td><td>码字如上坟</td><td>Lv.2</td><td>6.0</td><td>23.0万</td><td class="uv">39.0万</td><td>2.2万</td><td>连载</td><td>23</td></tr>
+      <tr><td class="num">12</td><td class="bk">我成假少爷后，九个姐姐跃跃欲试</td><td>追飞盘的金毛</td><td>Lv.4</td><td>6.9</td><td>29.4万</td><td class="uv">47.9万</td><td>3.6万</td><td>连载</td><td>17</td></tr>
+      <tr><td class="num">13</td><td class="bk">我，死灵法师，遵纪守法</td><td>任怨</td><td>Lv.3</td><td>7.8</td><td>19.3万</td><td class="uv">23.0万</td><td>4.8万</td><td>连载</td><td>6</td></tr>
+      <tr><td class="num">14</td><td class="bk">恋综：和绝美大小姐的对抗路日常</td><td>吃辣小能手</td><td>Lv.1</td><td>6.6</td><td>27.1万</td><td class="uv">27.4万</td><td>2.5万</td><td>连载</td><td>6</td></tr>
+      <tr><td class="num">15</td><td class="bk">说好造桥游戏，打穿天山什么鬼？</td><td>天选红中</td><td>Lv.3</td><td>7.0</td><td>18.0万</td><td class="uv">30.9万</td><td>7.4万</td><td>连载</td><td>4</td></tr>
+      <tr><td class="num">16</td><td class="bk">害怕我暴走，全世界秒变讨好人格</td><td>雪飘人间</td><td>Lv.4</td><td>6.1</td><td>27.1万</td><td class="uv">23.8万</td><td>2.0万</td><td>连载</td><td>14</td></tr>
+      <tr><td class="num">17</td><td class="bk">直播我和徐妙云，老朱全家破防了</td><td>馒头不香吧</td><td>Lv.4</td><td>6.9</td><td>26.0万</td><td class="uv">24.3万</td><td>3.3万</td><td>连载</td><td>9</td></tr>
+      <tr><td class="num">18</td><td class="bk">文娱：我天仙弟弟，震惊美利坚</td><td>九月幻境</td><td>Lv.2</td><td>6.4</td><td>17.9万</td><td class="uv">25.1万</td><td>2.0万</td><td>连载</td><td>14</td></tr>
+      <tr><td class="num">19</td><td class="bk">化身黄河蛟龙，被走近科学曝光</td><td>仙秦太师</td><td>Lv.5</td><td>5.1</td><td>26.1万</td><td class="uv">23.2万</td><td>1.3万</td><td>连载</td><td>13</td></tr>
+      <tr><td class="num">20</td><td class="bk">一首曾经的你，全网求我别退圈</td><td>爱吃鱼尾巴的猫</td><td>Lv.4</td><td>6.2</td><td>28.1万</td><td class="uv">22.1万</td><td>1.4万</td><td>连载</td><td>6</td></tr>
+      <tr><td class="num">21</td><td class="bk">超时空导演：从忽悠小天仙开始</td><td>咸鱼不翻锅</td><td>Lv.4</td><td>7.3</td><td>22.0万</td><td class="uv">17.1万</td><td>3.6万</td><td>连载</td><td>5</td></tr>
+      <tr><td class="num">22</td><td class="bk">高考前七天，我穿越十年后</td><td>面无表情哈</td><td>Lv.5</td><td>7.0</td><td>21.0万</td><td class="uv">18.1万</td><td>2.5万</td><td>连载</td><td>3</td></tr>
+      <tr><td class="num">23</td><td class="bk">刚吊销我行医执照，就被毒蛇咬了</td><td>黄连煮咖啡</td><td>Lv.5</td><td>5.8</td><td>21.3万</td><td class="uv">18.2万</td><td>1.5万</td><td>连载</td><td>7</td></tr>
+      <tr><td class="num">24</td><td class="bk">给员工发超跑，你当死士养呢？</td><td>无关风风风月</td><td>Lv.4</td><td>6.9</td><td>23.0万</td><td class="uv">25.2万</td><td>1.9万</td><td>连载</td><td>13</td></tr>
+      <tr><td class="num">25</td><td class="bk">只要我失恋，华语乐坛就过年！</td><td>念旧歌</td><td>Lv.5</td><td>5.7</td><td>17.3万</td><td class="uv">15.2万</td><td>1.9万</td><td>连载</td><td>2</td></tr>
+      <tr><td class="num">26</td><td class="bk">十岁混圈，小爷娱乐圈圈霸</td><td>坑多话不多</td><td>Lv.5</td><td>6.1</td><td>22.4万</td><td class="uv">21.4万</td><td>2.9万</td><td>连载</td><td>4</td></tr>
+      <tr><td class="num">27</td><td class="bk">反派：羞辱主角妹妹，她却爱上我</td><td>爱卿无需多言</td><td>Lv.2</td><td>6.6</td><td>20.0万</td><td class="uv">17.6万</td><td>1.9万</td><td>连载</td><td>6</td></tr>
+      <tr><td class="num">28</td><td class="bk">网约车百倍补贴，我转身提迈巴赫</td><td>懒洋洋本懒</td><td>Lv.4</td><td>7.2</td><td>21.5万</td><td class="uv">19.7万</td><td>2.9万</td><td>连载</td><td>4</td></tr>
+      <tr><td class="num">29</td><td class="bk">透视：这个高考状元还是亿万富豪</td><td>奶味猕猴桃</td><td>Lv.1</td><td>7.1</td><td>23.9万</td><td class="uv">13.9万</td><td>2.1万</td><td>连载</td><td>2</td></tr>
+      <tr><td class="num">30</td><td class="bk">只因我写了诛仙，校花给我寄刀片</td><td>想rua鱼</td><td>Lv.1</td><td>6.3</td><td>25.6万</td><td class="uv">24.1万</td><td>7000</td><td>连载</td><td>13</td></tr>
+    </tbody>
+  </table>
+
+  <div class="board-title">C端 - 阅读榜 <span class="cnt">Top 30</span></div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>等级</th><th>评分</th><th>字数</th><th>日UV</th><th>14天加架</th><th>状态</th><th>在榜</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">归国留洋水货？叫我芯片之父！</td><td>这肉有毒</td><td>Lv.5</td><td>8.3</td><td>78.6万</td><td class="uv">333.7万</td><td>15.3万</td><td>连载</td><td>73</td></tr>
+      <tr><td class="num">2</td><td class="bk">上恋综后，和清冷设计师爆火全网</td><td>在下张滚滚</td><td>Lv.4</td><td>8.9</td><td>34.4万</td><td class="uv">188.9万</td><td>12.2万</td><td>连载</td><td>9</td></tr>
+      <tr><td class="num">3</td><td class="bk">每天六千万，只能在县城花？</td><td>凤失凰</td><td>Lv.5</td><td>8.0</td><td>105.5万</td><td class="uv">581.7万</td><td>6.4万</td><td>连载</td><td>90</td></tr>
+      <tr><td class="num">4</td><td class="bk">自律就变帅！高冷校花绷不住了！</td><td>单身狗协会副会长</td><td>Lv.4</td><td>7.6</td><td>79.7万</td><td class="uv">159.9万</td><td>7.3万</td><td>连载</td><td>35</td></tr>
+      <tr><td class="num">5</td><td class="bk">顶级妇医：开局查出名媛怀外教种</td><td>咸包谷</td><td>Lv.5</td><td>8.5</td><td>92.9万</td><td class="uv">295.8万</td><td>5.2万</td><td>连载</td><td>85</td></tr>
+      <tr><td class="num">6</td><td class="bk">看见情绪颜色后，她们都变粉色了</td><td>M0724</td><td>Lv.4</td><td>9.2</td><td>50.9万</td><td class="uv">124.2万</td><td>9.8万</td><td>连载</td><td>28</td></tr>
+      <tr><td class="num">7</td><td class="bk">华娱：从绑定天仙开始全能</td><td>青葱咸鱼</td><td>Lv.5</td><td>8.8</td><td>107.2万</td><td class="uv">176.8万</td><td>7.1万</td><td>连载</td><td>21</td></tr>
+      <tr><td class="num">8</td><td class="bk">每天一个亿，开局和校花签订契约</td><td>滴滴滴哒三号</td><td>Lv.4</td><td>7.0</td><td>92.1万</td><td class="uv">180.4万</td><td>7.0万</td><td>连载</td><td>22</td></tr>
+      <tr><td class="num">9</td><td class="bk">开局上岸，从外卖员成秘密特勤</td><td>骑着青牛漫步</td><td>Lv.5</td><td>8.6</td><td>60.1万</td><td class="uv">197.5万</td><td>6.5万</td><td>连载</td><td>48</td></tr>
+      <tr><td class="num">10</td><td class="bk">改运奇书</td><td>写小说的斯巴达</td><td>Lv.5</td><td>9.3</td><td>173.5万</td><td class="uv">472.1万</td><td>8.6万</td><td>完结</td><td>159</td></tr>
+      <tr><td class="num">11</td><td class="bk">人在五哈：全网催我和前任复合！</td><td>白色焰火FFF</td><td>Lv.4</td><td>7.5</td><td>59.2万</td><td class="uv">181.9万</td><td>4.9万</td><td>连载</td><td>43</td></tr>
+      <tr><td class="num">12</td><td class="bk">入伍四次！我被原部队拉进黑名单</td><td>朝朝和</td><td>Lv.5</td><td>8.5</td><td>70.8万</td><td class="uv">311.9万</td><td>5.2万</td><td>连载</td><td>35</td></tr>
+      <tr><td class="num">13</td><td class="bk">刚满五岁半，老登逆袭系统来了</td><td>小生有点帅</td><td>Lv.4</td><td>7.6</td><td>56.6万</td><td class="uv">48.9万</td><td>7.5万</td><td>连载</td><td>4</td></tr>
+      <tr><td class="num">14</td><td class="bk">下载APP，才发现青梅好感爆了</td><td>八音</td><td>Lv.5</td><td>9.2</td><td>37.3万</td><td class="uv">135.4万</td><td>7.6万</td><td>连载</td><td>18</td></tr>
+      <tr><td class="num">15</td><td class="bk">直播揭秘：女娲补天？祂补的是海底</td><td>城神</td><td>—</td><td>7.5</td><td>36.7万</td><td class="uv">48.3万</td><td>5.3万</td><td>连载</td><td>9</td></tr>
+      <tr><td class="num">16</td><td class="bk">好感度系统：女神想要的，我全有</td><td>欧氪</td><td>Lv.4</td><td>8.2</td><td>63.7万</td><td class="uv">115.0万</td><td>4.1万</td><td>连载</td><td>40</td></tr>
+      <tr><td class="num">17</td><td class="bk">继承荒山：直接改造10A级景区</td><td>小猪旺财</td><td>Lv.5</td><td>9.4</td><td>186.3万</td><td class="uv">499.1万</td><td>7.7万</td><td>完结</td><td>121</td></tr>
+      <tr><td class="num">18</td><td class="bk">我，圈钱主播！但大哥是真刷啊！</td><td>蓝色粉笔</td><td>Lv.5</td><td>9.4</td><td>180.1万</td><td class="uv">1158.1万</td><td>3.3万</td><td>完结</td><td>308</td></tr>
+      <tr><td class="num">19</td><td class="bk">人在东京魅力拉满，樱花妹爱疯了</td><td>小生有点帅</td><td>Lv.4</td><td>7.2</td><td>32.6万</td><td class="uv">46.8万</td><td>6.0万</td><td>连载</td><td>4</td></tr>
+      <tr><td class="num">20</td><td class="bk">救命！我这是农场，不是动物园！</td><td>白日阳光</td><td>Lv.5</td><td>8.3</td><td>74.1万</td><td class="uv">258.9万</td><td>3.8万</td><td>连载</td><td>75</td></tr>
+      <tr><td class="num">21</td><td class="bk">分手后，被一群精神小妹收留了</td><td>闭门斋</td><td>Lv.4</td><td>7.3</td><td>100.2万</td><td class="uv">129.8万</td><td>10.8万</td><td>连载</td><td>35</td></tr>
+      <tr><td class="num">22</td><td class="bk">刀哥爆红娱乐圈，粉丝求我别杀了</td><td>孤风一醉</td><td>Lv.5</td><td>9.2</td><td>222.1万</td><td class="uv">609.3万</td><td>4.0万</td><td>连载</td><td>370</td></tr>
+      <tr><td class="num">23</td><td class="bk">死亡回档，48小时拯救世界</td><td>稻香锅巴</td><td>Lv.5</td><td>8.6</td><td>114.1万</td><td class="uv">276.0万</td><td>3.5万</td><td>连载</td><td>82</td></tr>
+      <tr><td class="num">24</td><td class="bk">卖个早点，怎么上班族全迟到了</td><td>练腿摸鱼仔</td><td>Lv.5</td><td>8.5</td><td>94.2万</td><td class="uv">152.3万</td><td>4.3万</td><td>连载</td><td>88</td></tr>
+      <tr><td class="num">25</td><td class="bk">我一个校长，听学生建议怎么了？</td><td>东北女主</td><td>Lv.2</td><td>7.9</td><td>42.0万</td><td class="uv">48.6万</td><td>5.9万</td><td>连载</td><td>10</td></tr>
+      <tr><td class="num">26</td><td class="bk">让你卧底，你把老米榨干了？</td><td>这样说会不会太伤他</td><td>Lv.4</td><td>8.5</td><td>111.9万</td><td class="uv">105.2万</td><td>4.4万</td><td>连载</td><td>42</td></tr>
+      <tr><td class="num">27</td><td class="bk">让你写爽文，你写活着？</td><td>风的传说</td><td>Lv.3</td><td>8.2</td><td>45.5万</td><td class="uv">49.1万</td><td>4.4万</td><td>连载</td><td>3</td></tr>
+      <tr><td class="num">28</td><td class="bk">刚离婚，被白富美拉去领证</td><td>富婆收割机</td><td>Lv.5</td><td>7.7</td><td>137.7万</td><td class="uv">173.8万</td><td>4.0万</td><td>连载</td><td>36</td></tr>
+      <tr><td class="num">29</td><td class="bk">让你去潜伏，你把老米搬空了？</td><td>梦回八荒</td><td>Lv.5</td><td>8.0</td><td>89.7万</td><td class="uv">210.5万</td><td>2.8万</td><td>连载</td><td>35</td></tr>
+      <tr><td class="num">30</td><td class="bk">让你拍反腐片，你拍人民的名义！</td><td>火狐火狐</td><td>Lv.5</td><td>7.2</td><td>47.3万</td><td class="uv">147.7万</td><td>2.9万</td><td>连载</td><td>32</td></tr>
+    </tbody>
+  </table>
+
+  <div class="board-title">C端 - 新书榜 <span class="cnt">Top 30</span></div>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>书名</th><th>作者</th><th>等级</th><th>评分</th><th>字数</th><th>日UV</th><th>14天加架</th><th>状态</th><th>在榜</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="bk">时间三明治之我怕个锤子</td><td>为妳独爱</td><td>Lv.3</td><td>8.1</td><td>82.3万</td><td class="uv">3000</td><td>210</td><td>连载</td><td>28</td></tr>
+      <tr><td class="num">2</td><td class="bk">神瞳觉醒：赌石撩美我为王</td><td>皮皮鲤</td><td>Lv.4</td><td>7.4</td><td>71.7万</td><td class="uv">9.5万</td><td>1820</td><td>连载</td><td>56</td></tr>
+      <tr><td class="num">3</td><td class="bk">让你拍反腐片，你拍人民的名义！</td><td>火狐火狐</td><td>Lv.5</td><td>7.2</td><td>47.3万</td><td class="uv">147.7万</td><td>2.9万</td><td>连载</td><td>32</td></tr>
+      <tr><td class="num">4</td><td class="bk">双穿，古代打劫，都市成首富</td><td>剑南纯</td><td>Lv.4</td><td>7.0</td><td>75.5万</td><td class="uv">37.7万</td><td>4181</td><td>连载</td><td>101</td></tr>
+      <tr><td class="num">5</td><td class="bk">开局上岸，从外卖员成秘密特勤</td><td>骑着青牛漫步</td><td>Lv.5</td><td>8.6</td><td>60.1万</td><td class="uv">197.5万</td><td>6.5万</td><td>连载</td><td>53</td></tr>
+      <tr><td class="num">6</td><td class="bk">生命倒计时，冰山天后闯入保安室</td><td>我吃豆角</td><td>Lv.4</td><td>7.9</td><td>60.3万</td><td class="uv">75.0万</td><td>2.0万</td><td>连载</td><td>67</td></tr>
+      <tr><td class="num">7</td><td class="bk">厨神附体，我把沙县开成了黑店！</td><td>景媱</td><td>Lv.4</td><td>8.2</td><td>47.4万</td><td class="uv">82.7万</td><td>3.6万</td><td>连载</td><td>34</td></tr>
+      <tr><td class="num">8</td><td class="bk">娱乐：离婚后，我带娃杀进娱乐圈</td><td>赚钱养家省心省力</td><td>Lv.4</td><td>7.6</td><td>58.1万</td><td class="uv">40.6万</td><td>7440</td><td>连载</td><td>53</td></tr>
+      <tr><td class="num">9</td><td class="bk">让你去潜伏，你把老米搬空了？</td><td>梦回八荒</td><td>Lv.5</td><td>8.0</td><td>89.7万</td><td class="uv">210.5万</td><td>2.8万</td><td>连载</td><td>35</td></tr>
+      <tr><td class="num">10</td><td class="bk">天幕：在冷战时期，放斩杀线视频</td><td>荷叶茶</td><td>Lv.4</td><td>7.0</td><td>55.3万</td><td class="uv">41.3万</td><td>3780</td><td>连载</td><td>51</td></tr>
+      <tr><td class="num">11</td><td class="bk">满级大佬闯五哈，马甲掉一地</td><td>墨笔成书</td><td>Lv.4</td><td>7.0</td><td>60.8万</td><td class="uv">117.1万</td><td>2398</td><td>连载</td><td>65</td></tr>
+      <tr><td class="num">12</td><td class="bk">归国留洋水货？叫我芯片之父！</td><td>这肉有毒</td><td>Lv.5</td><td>8.3</td><td>78.6万</td><td class="uv">333.7万</td><td>15.3万</td><td>连载</td><td>73</td></tr>
+      <tr><td class="num">13</td><td class="bk">人在五哈：全网催我和前任复合！</td><td>白色焰火FFF</td><td>Lv.4</td><td>7.5</td><td>59.2万</td><td class="uv">181.9万</td><td>4.9万</td><td>连载</td><td>42</td></tr>
+      <tr><td class="num">14</td><td class="bk">恋综拐跑天后，你说你只是个厨子</td><td>壹号铲屎官</td><td>Lv.5</td><td>7.2</td><td>90.3万</td><td class="uv">122.6万</td><td>4670</td><td>连载</td><td>231</td></tr>
+      <tr><td class="num">15</td><td class="bk">顶级妇医：开局查出名媛怀外教种</td><td>咸包谷</td><td>Lv.5</td><td>8.5</td><td>92.9万</td><td class="uv">295.8万</td><td>5.2万</td><td>连载</td><td>71</td></tr>
+      <tr><td class="num">16</td><td class="bk">重生考军校：不负戎装不负卿</td><td>是闪光还是燃烧</td><td>Lv.3</td><td>7.2</td><td>57.7万</td><td class="uv">43.9万</td><td>1.1万</td><td>连载</td><td>37</td></tr>
+      <tr><td class="num">17</td><td class="bk">双穿：苟在都市，狂在修仙</td><td>么么大叔</td><td>Lv.5</td><td>7.3</td><td>92.5万</td><td class="uv">41.9万</td><td>8241</td><td>连载</td><td>62</td></tr>
+      <tr><td class="num">18</td><td class="bk">我一写网文的，你让我混娱乐圈？</td><td>淮海养鸡人</td><td>Lv.4</td><td>7.8</td><td>34.7万</td><td class="uv">94.4万</td><td>2.9万</td><td>连载</td><td>11</td></tr>
+      <tr><td class="num">19</td><td class="bk">带刘天仙回东北过年，全网磕疯了</td><td>吃皮不吐葡萄皮</td><td>Lv.5</td><td>8.4</td><td>83.4万</td><td class="uv">144.1万</td><td>7628</td><td>连载</td><td>117</td></tr>
+      <tr><td class="num">20</td><td class="bk">快穿：短命炮灰不死了</td><td>啾咪珂珂咩</td><td>Lv.4</td><td>7.9</td><td>87.0万</td><td class="uv">96.0万</td><td>5331</td><td>连载</td><td>86</td></tr>
+      <tr><td class="num">21</td><td class="bk">九号当铺：开局朱元璋上门求救！</td><td>梦入秦时</td><td>Lv.5</td><td>7.0</td><td>59.4万</td><td class="uv">47.8万</td><td>3.0万</td><td>连载</td><td>8</td></tr>
+      <tr><td class="num">22</td><td class="bk">每天一个发财情报，我成首富了</td><td>sun晚风吹</td><td>Lv.4</td><td>7.2</td><td>52.9万</td><td class="uv">25.6万</td><td>3482</td><td>连载</td><td>19</td></tr>
+      <tr><td class="num">23</td><td class="bk">全家被害我化身黑夜屠夫</td><td>知行软硬笔书法小说</td><td>Lv.5</td><td>7.0</td><td>52.6万</td><td class="uv">25.1万</td><td>6244</td><td>连载</td><td>19</td></tr>
+      <tr><td class="num">24</td><td class="bk">离婚后，带娃卖炒饭，前妻悔疯了</td><td>苏无敌</td><td>Lv.4</td><td>7.4</td><td>90.5万</td><td class="uv">38.4万</td><td>3293</td><td>连载</td><td>68</td></tr>
+      <tr><td class="num">25</td><td class="bk">让你代课，你教学生核聚变？</td><td>青峰布衣</td><td>Lv.5</td><td>8.2</td><td>97.9万</td><td class="uv">202.5万</td><td>3.4万</td><td>连载</td><td>89</td></tr>
+      <tr><td class="num">26</td><td class="bk">我一个游戏主播，都找我算命干嘛</td><td>一只焱淼吖</td><td>Lv.4</td><td>8.3</td><td>96.2万</td><td class="uv">62.4万</td><td>4241</td><td>连载</td><td>35</td></tr>
+      <tr><td class="num">27</td><td class="bk">参加个真人秀，怎么送我万民伞了</td><td>广子</td><td>Lv.4</td><td>8.0</td><td>73.4万</td><td class="uv">100.2万</td><td>1.3万</td><td>连载</td><td>47</td></tr>
+      <tr><td class="num">28</td><td class="bk">高武：背景无敌的我，居然是反派</td><td>吃饭饭</td><td>Lv.2</td><td>8.1</td><td>97.2万</td><td class="uv">337.0万</td><td>521</td><td>连载</td><td>162</td></tr>
+      <tr><td class="num">29</td><td class="bk">刚离婚，校花带四胞胎堵门叫爸！</td><td>蹲蹲饱</td><td>Lv.3</td><td>7.4</td><td>87.3万</td><td class="uv">15.0万</td><td>1638</td><td>连载</td><td>29</td></tr>
+      <tr><td class="num">30</td><td class="bk">我的不完整系统</td><td>RCRZ</td><td>Lv.4</td><td>7.2</td><td>97.8万</td><td class="uv">31.2万</td><td>1886</td><td>连载</td><td>17</td></tr>
+    </tbody>
+  </table>
+
+  <div class="panel" style="margin-top:16px;">
+    <p><span class="label">说明</span>C端口碑榜 / 完本榜 / 推荐榜 / 热播榜 / 高分榜 本期均为 Top 0，故未列出。</p>
+  </div>
+</section>
+
+<!-- 标签频率 -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">捌</span>
+    <h2>热门标签频率</h2>
+    <span class="chapter-note">90 本作品共 56 个标签</span>
+  </div>
+  <div class="panel">
+    <div class="tagbar">
+      <span class="tag-pill top">都市<span class="freq">90 · 100%</span></span>
+      <span class="tag-pill top">系统<span class="freq">63 · 70%</span></span>
+      <span class="tag-pill top">穿越<span class="freq">40 · 44%</span></span>
+      <span class="tag-pill">多女主<span class="freq">19 · 21%</span></span>
+      <span class="tag-pill">娱乐圈<span class="freq">17 · 19%</span></span>
+      <span class="tag-pill">魂穿<span class="freq">14 · 16%</span></span>
+      <span class="tag-pill">直播<span class="freq">11 · 12%</span></span>
+      <span class="tag-pill">搞笑<span class="freq">11 · 12%</span></span>
+      <span class="tag-pill">校花<span class="freq">10 · 11%</span></span>
+      <span class="tag-pill">神豪<span class="freq">9 · 10%</span></span>
+      <span class="tag-pill">单女主<span class="freq">8 · 9%</span></span>
+      <span class="tag-pill">无女主<span class="freq">6 · 7%</span></span>
+      <span class="tag-pill">异能<span class="freq">5 · 6%</span></span>
+      <span class="tag-pill">打脸<span class="freq">5 · 6%</span></span>
+      <span class="tag-pill">神医<span class="freq">4 · 4%</span></span>
+      <span class="tag-pill">开局<span class="freq">4 · 4%</span></span>
+      <span class="tag-pill">重生<span class="freq">4 · 4%</span></span>
+      <span class="tag-pill">无敌<span class="freq">4 · 4%</span></span>
+      <span class="tag-pill">反派<span class="freq">4 · 4%</span></span>
+      <span class="tag-pill">学霸<span class="freq">3 · 3%</span></span>
+      <span class="tag-pill">天才<span class="freq">3 · 3%</span></span>
+      <span class="tag-pill">美食<span class="freq">3 · 3%</span></span>
+      <span class="tag-pill">鉴宝<span class="freq">3 · 3%</span></span>
+      <span class="tag-pill">奶爸<span class="freq">3 · 3%</span></span>
+      <span class="tag-pill">基建<span class="freq">2 · 2%</span></span>
+      <span class="tag-pill">全能<span class="freq">2 · 2%</span></span>
+      <span class="tag-pill">无后宫<span class="freq">2 · 2%</span></span>
+      <span class="tag-pill">乡村<span class="freq">2 · 2%</span></span>
+      <span class="tag-pill">腹黑<span class="freq">2 · 2%</span></span>
+      <span class="tag-pill">大佬<span class="freq">2 · 2%</span></span>
+      <span class="tag-pill">特工<span class="freq">2 · 2%</span></span>
+      <span class="tag-pill">风水<span class="freq">2 · 2%</span></span>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--ink-mute);">其余 24 个标签（群像 / 扮猪吃虎 / 宠物 / 升级 / 末世 / 海岛 / 求生 / 卡牌 / 高手下山 / 1v1 / 黑道 / 都市江湖 / 大小姐 / 争霸 / 黑科技 / 都市异能 / 女帝 / 空间 / 诸天 / 诸天万界 / 发家致富 / 黑化 / 仕途 / 双系统）各出现 1 次，占 1%。</p>
+  </div>
+</section>
+
+<!-- 趋势启示 -->
+<section class="chapter">
+  <div class="chapter-head">
+    <span class="chapter-num">玖</span>
+    <h2>核心趋势与写书启示</h2>
+  </div>
+  <div class="points">
+    <div class="point">
+      <h4><span class="n">01</span>系统流仍是绝对主流</h4>
+      <p>全部 90 本中带「系统」标签 63 本，占比约 70%；9 个榜单中超 80% 作品为系统流。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">02</span>神豪 + 基建/乡村 持续火爆</h4>
+      <p>「每天六千万只能在县城花」「继承荒山改造10A级景区」等神豪+基建模式热度极高；读者对"在地方花钱搞建设"的代入感极强。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">03</span>娱乐圈 + 直播 屡出爆款</h4>
+      <p>「上恋综后」「华娱从绑定天仙开始」「刀哥爆红娱乐圈」等娱乐圈题材在阅读榜和口碑榜同时上榜，恋综/真人秀是当前最火细分方向。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">04</span>美食经营 稳定吸量</h4>
+      <p>「卖个早点」「厨神附体」「我的美食随机刷新」等美食题材稳定占据多榜；无女主 + 美食 + 搞笑 是高评分公式。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">05</span>高分作品偏好"变身/反串/萝莉"</h4>
+      <p>高分榜 Top 10 中有多本涉及"病娇萝莉""变身""白毛萝莉""猫娘"等元素，都市脑洞高分区读者偏好新奇设定 + 轻松搞笑。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">06</span>完本老书长尾效应极强</h4>
+      <p>「我，圈钱主播」在榜近 400 天、日UV 仍 1158 万；「刀哥爆红娱乐圈」在榜 383 天。优质完本作品持续获得推荐流量。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">07</span>风水算命类有稳定受众</h4>
+      <p>「全网第一本能改命的风水小说」在完本榜 #1、推荐榜 #1；「摆摊续命」「直播算命」「我算命主播」等多本风水题材稳定上榜。</p>
+    </div>
+  </div>
+
+  <div class="board-title" style="margin-top:28px;">对写书的启示</div>
+  <div class="points">
+    <div class="point">
+      <h4><span class="n">01</span>系统设定必须有新意</h4>
+      <p>纯系统流已饱和，需独特切入点（如「系统想害我」「好感度系统」「自律就变帅」）。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">02</span>标题要带冲突感</h4>
+      <p>高分高 UV 作品标题普遍有强烈反差/冲突（「归国留洋水货？叫我芯片之父！」）。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">03</span>无女主 + 搞笑 是高分密码</h4>
+      <p>高分榜中大量无女主 + 搞笑轻松组合，读者评分宽容度高。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">04</span>基建/乡村/美食 是稳定赛道</h4>
+      <p>受众稳定、完读率高、长尾效应强。</p>
+    </div>
+    <div class="point">
+      <h4><span class="n">05</span>高考/学霸题材有时效性</h4>
+      <p>新书榜中高考题材集中出现，适合 6-8 月首秀。</p>
+    </div>
+  </div>
+</section>
+
+<div class="foot">
+  数据日期 2026-08-06 ｜ 来源：番茄小说 B端 + C端榜单 ｜ 去重前 120 条 / 去重后 90 本 / 覆盖 9 个榜单
+</div>
+
+</div>
+</body>
+</html>
